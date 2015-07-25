@@ -9,9 +9,7 @@ ADD ["project/*", "/opt/app/project/"]
 
 WORKDIR /opt/app
 
-RUN ["sbt", "clean", "test"]
+RUN ["sbt", "compile"]
 
 ENTRYPOINT ["sbt"]
 CMD ["rest/run"]
-
-
