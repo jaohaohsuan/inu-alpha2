@@ -4,9 +4,13 @@ MAINTAINER Henry Jao henry.jao@grandsys.com
 
 EXPOSE 7879
 
-ADD ["build.sbt", "/opt/app/"]
-ADD ["project/*", "/opt/app/project/"]
+COPY ["build.sbt", "/opt/app/"]
+COPY ["project", "/opt/app/project"]
+COPY ["rest", "/opt/app/rest"]
 
 WORKDIR /opt/app
 
 RUN ["sbt", "compile"]
+
+ENTRYPOINT ["sbt"]
+CMD ["rest/run"]
