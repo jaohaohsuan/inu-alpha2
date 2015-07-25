@@ -15,6 +15,6 @@ ADD ["project/*", "/opt/app/project/"]
 
 WORKDIR /opt/app
 
-RUN ["sbt", "universal:stage"]
+RUN ["sbt", "compile"]
 
 
