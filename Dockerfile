@@ -6,7 +6,7 @@ ENV SBT_JAR      https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/s
 ADD  $SBT_JAR  /usr/local/bin/sbt-launch.jar  
 COPY sbt.sh    /usr/local/bin/sbt
 
-RUN chmod u+x /usr/local/bin/sbt
+RUN ["chmod", "u+x", "/usr/local/bin/sbt"]
 
 MAINTAINER Henry Jao henry.jao@grandsys.com
 
