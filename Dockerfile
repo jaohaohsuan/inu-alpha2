@@ -7,6 +7,6 @@ ADD ["project/*", "/opt/app/project/"]
 
 WORKDIR /opt/app
 
-RUN ["sbt"]
+RUN ["sbt", "clean", "test"]
 
 
