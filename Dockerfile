@@ -10,7 +10,7 @@ RUN chmod u+x /usr/local/bin/sbt
 
 MAINTAINER Henry Jao henry.jao@grandsys.com
 
-ADD ["util", "build.sbt", "/opt/app/"]
+ADD ["build.sbt", "/opt/app/"]
 ADD ["project/*", "/opt/app/project/"]
 
 WORKDIR /opt/app
