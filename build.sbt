@@ -3,7 +3,8 @@ import Dependencies._
 lazy val commonSettings = Seq(
   organization := "com.grandsys",
   version := "0.2.0",
-  scalaVersion := "2.11.7"
+  scalaVersion := "2.11.7",
+  resolvers += "spray nightlies repo" at "http://nightlies.spray.io"
 ) ++ Revolver.settings
 
 lazy val root = (project in file(".")).aggregate(util, rest).
