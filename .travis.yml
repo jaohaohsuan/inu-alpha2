@@ -9,13 +9,16 @@ cache:
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot/
 
+install:
+    - curl -sLo - http://j.mp/install-travis-docker | sh -xe
+
 scala:
    - 2.11.7
 
 
 script:
    - sbt ++$TRAVIS_SCALA_VERSION test
-   - sbt docker:publish
+   - sbt docker:publishLocal
 
    # Tricks to avoid unnecessary cache updates
    - find $HOME/.sbt -name "*.lock" | xargs rm
