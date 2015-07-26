@@ -14,22 +14,24 @@ object Main extends App {
 
     implicit val system = ActorSystem(c.clusterName, c.config)
 
-    val service = system.actorOf(Props[ServiceActor], "services")
+    system.registerOnTermination {
+      system.log.info(s"${c.clusterName} actors shutting down")
+    }
 
-    val ioListener = actor("ioListener")(new Act with ActorLogging {
+    val service = system.actorOf(Props[ServiceActor], "spray-services")
+
+    val callbackActor = actor("ioListener")(new Act with ActorLogging {
       become {
         case b @ Bound(connection) => log.info(s"bound: $b")
-        case CommandFailed(c) => log.error(s"$c")
-        case unknown => log.debug(s"unknown: $unknown")
+        case CommandFailed(cmd) =>
+          log.error(s"Unable to bind to port ${c.port} on interface 0.0.0.0 $cmd")
+          system.shutdown()
+        case all => log.debug(s"spray-services received a message from akka.IO: $all")
       }
     })
 
-    IO(Http).tell(Http.Bind(service, interface = "0.0.0.0", port = c.port), ioListener)
+    IO(Http).tell(Http.Bind(service, interface = "0.0.0.0", port = c.port), callbackActor)
 
     sys.addShutdownHook(system.shutdown())
-
-
-    //println("Rest endpoint starting..")
-
   }
 }
