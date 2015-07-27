@@ -14,13 +14,12 @@ dependencies:
     - "~/.sbt"
     - "~/.ivy2"
     - "~/bin"
-    
+
   pre:
     - wget --output-document=$HOME/bin/sbt-launch.jar https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/"$SBT_VERSION"/sbt-launch.jar
     - echo "java $SBT_OPTS -jar \`dirname \$0\`/sbt-launch.jar \"\$@\"" > $HOME/bin/sbt
     - chmod u+x $HOME/bin/sbt
     - which sbt
-    - sbt sbt-version
 
 deployment:
   hub:
@@ -28,4 +27,5 @@ deployment:
     commands:
       - docker version
       - docker login -e $DOCKERHUB_MAIL -p $DOCKERHUB_PASSWORD -u $DOCKERHUB_LOGIN
-      - sbt docker:publish
+      - sbt docker:publishLocal
+      - docker images

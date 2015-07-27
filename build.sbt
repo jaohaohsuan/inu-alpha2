@@ -14,7 +14,7 @@ lazy val commonSettings = Seq(
 lazy val dockerSettings = Seq(
   dockerBaseImage := "1science/java:oracle-jre-8",
   dockerExposedPorts := Seq(7879),
-  dockerRepository := Some("jaohaohsuan"),
+  dockerRepository in Docker := Some("jaohaohsuan"),
   packageName in Docker := packageName.value,
   version in Docker := version.value
 )
