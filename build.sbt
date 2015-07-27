@@ -20,7 +20,6 @@ lazy val dockerSettings = Seq(
 )
 
 lazy val root = (project in file(".")).
-  aggregate(util, rest).
   dependsOn(rest).
   enablePlugins(SbtNativePackager).
   enablePlugins(JavaServerAppPackaging).
@@ -41,10 +40,16 @@ lazy val rest = project.
   )
 
 lazy val protocols = project.
-  settings(commonSettings: _*)
+  settings(commonSettings: _*).
+  settings(
+
+  )
 
 lazy val util = project.
-  settings(commonSettings: _*)
+  settings(commonSettings: _*).
+  settings(
+
+  )
 
 
 
